@@ -7,37 +7,40 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name="ORDER_ENTITY")
+@Entity(name = "ORDER_ENTITY")
 public class OrderEntity {
 
 	@Id
 	@GeneratedValue
-	@Column(name="ID")
+	@Column(name = "ID")
 	private Long id;
 
-	@Column(name="ORDER_ID")
+	@Column(name = "ORDER_ID")
 	private String orderId;
 
-	@Column(name="ORDER_NAME")
+	@Column(name = "ORDER_NAME")
 	private String orderName;
 
-	@Column(name="PRODUCT_NAME")
+	@Column(name = "PRODUCT_NAME")
 	private String productName;
 
-	@Column(name="CREATED_BY")
+	@Column(name = "CREATED_BY")
 	private String createdBy;
 
-	@Column(name="CREATED_DATE")
+	@Column(name = "CREATED_DATE")
 	private Date createdDate;
 
-	@Column(name="CLIENT_UID")
+	@Column(name = "CLIENT_UID")
 	private String clientUid;
 
-	@Column(name="VENDOR_UID")
+	@Column(name = "VENDOR_UID")
 	private String vendorUid;
 
-	@Column(name="VENDOR_USER_NAME")
+	@Column(name = "VENDOR_USER_NAME")
 	private String vendorUserName;
+
+	@Column(name = "STATUS_CODE")
+	private String statuCode;
 
 	public OrderEntity() {
 		super();
@@ -124,11 +127,19 @@ public class OrderEntity {
 		this.vendorUserName = vendorUserName;
 	}
 
+	public String getStatuCode() {
+		return statuCode;
+	}
+
+	public void setStatuCode(String statuCode) {
+		this.statuCode = statuCode;
+	}
+
 	@Override
 	public String toString() {
-		return "OrderEntity [id=" + id + ", orderId=" + orderId + ", orderName=" + orderName + ", productName=" + productName
-				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", clientUid=" + clientUid
-				+ ", vendorUid=" + vendorUid + ", vendorUserName=" + vendorUserName + "]";
+		return "OrderEntity [id=" + id + ", orderId=" + orderId + ", orderName=" + orderName + ", productName="
+				+ productName + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", clientUid=" + clientUid
+				+ ", vendorUid=" + vendorUid + ", vendorUserName=" + vendorUserName + ", statuCode=" + statuCode + "]";
 	}
 
 }

@@ -29,19 +29,49 @@ Order Manager Microservice Github:
   Can uncomment the commented pom entry, main class code, and property file entry, and comment-out the H2 entry from pom file.
 
 Create Order:
-  curl -X POST http://localhost:8080/createOrder -H 'authorization: Basic  YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"orderName": "mobileOrder", "productName": "moto turbo", "createdBy":"Ashish", "clientUid":"A23074", "vendorUid": "NA"}'
+-------------
+  curl -X POST http://localhost:8080/order -H 'authorization: Basic  YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"orderName": "mobileOrder", "productName": "moto turbo", "createdBy":"Ashish", "clientUid":"A23074", "vendorUid": "NA"}'
+  
+  Response: {"orderId": "1", "message": "Order process initiated", "statusCode": "Assigned"}
+  
+  Request: {"orderName": "mobileOrder", "productName": "moto turbo", "createdBy":"Ashish", "clientUid":"A23074"}
+  Response: {"orderId": "2", "message": "Order successfully created.", "statusCode": "Created"}
 
 Start Order Process:
-  curl -X POST http://localhost:8080/start-order-process -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"orderId": "1", "isAssigned": "true", "vendorUid": "Ajeya03"}'
+--------------------
+  curl -X POST http://localhost:8080/start-order-process -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"orderId": "1", "vendorUid": "Ajeya03"}'
+  
+  Response: {"orderId": "2", "message": "Order process initiated", "statusCode": "Assigned"}
 
 Fetch Tasks:
+------------
   curl -X GET http://localhost:8080/runtime/tasks -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Accept: application/json'
 
 Accept Offer Acceptance Task:
-  curl -X POST http://localhost:8080/runtime/tasks/10 -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"action" : "complete", "variables": [ {"name":"status", "value":"accept"} ]}'
+-----------------------------
+  curl -X POST http://localhost:8080/runtime/tasks/{taskId} -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"action" : "complete", "variables": [ {"name":"status", "value":"accept"} ]}'
 
 Accept Inspection Task:
-  curl -X POST http://localhost:8080/runtime/tasks/15 -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"action" : "complete", "variables": [ {"name":"inspectionStatus", "value":"accept"} ]}'
+-----------------------
+  curl -X POST http://localhost:8080/runtime/tasks/{taskId} -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"action" : "complete", "variables": [ {"name":"inspectionStatus", "value":"accept"} ]}'
 
 Accept Review Task:
-  curl -X POST http://localhost:8080/runtime/tasks/20 -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"action" : "complete", "variables": [ {"name":"reviewStatus", "value":"accept"} ]}'
+-------------------
+  curl -X POST http://localhost:8080/runtime/tasks/{taskId} -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"action" : "complete", "variables": [ {"name":"reviewStatus", "value":"accept"} ]}'
+
+  
+20 August 2017
+==============
+Order Creation and Start process APIs are updated.
+
+Order Search API is added.
+
+Order Search:
+-------------
+  curl -X GET http://localhost:8080/order/{id} -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'content-type: application/json'
+  
+  Response if valid id: 
+  {"orderEntity":{"id":1,"orderId":"1","orderName":"mobileOrder","productName":"moto turbo","createdBy":"Ashish","createdDate":null,"clientUid":"A23074","vendorUid":"Ajeya Raj","vendorUserName":null,"statuCode":"Assigned"},"message":"Matching order found."}
+  
+  Response if invalid id:
+  {"orderEntity":null,"message":"Order not found."}
