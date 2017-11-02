@@ -30,7 +30,7 @@ Order Manager Microservice Github:
 
 Create Order:
 -------------
-  curl -X POST http://localhost:8080/order -H 'authorization: Basic  YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"orderName": "mobileOrder", "productName": "moto turbo", "createdBy":"Ashish", "clientUid":"A23074", "vendorUid": "NA"}'
+  curl -X POST http://localhost:8080/orderman/order -H 'authorization: Basic  YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -H 'uid: ashish' -d '{"orderName": "mobileOrder", "productName": "moto turbo", "createdBy":"Ashish", "clientUid":"A23074", "vendorUid": "NA"}'
   
   Response: {"orderId": "1", "message": "Order process initiated", "statusCode": "Assigned"}
   
@@ -39,13 +39,13 @@ Create Order:
 
 Start Order Process:
 --------------------
-  curl -X POST http://localhost:8080/start-order-process -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -d '{"orderId": "1", "vendorUid": "Ajeya03"}'
+  curl -X POST http://localhost:8080/orderman/start-order-process -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Content-Type: application/json' -H 'uid: ashish' -d '{"orderId": "1", "vendorUid": "Ajeya03"}'
   
   Response: {"orderId": "2", "message": "Order process initiated", "statusCode": "Assigned"}
 
 Fetch Tasks:
 ------------
-  curl -X GET http://localhost:8080/runtime/tasks -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Accept: application/json'
+  curl -X GET http://localhost:8080/orderman/tasks -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'Accept: application/json' -H 'uid: ashish'
 
 Accept Offer Acceptance Task:
 -----------------------------
@@ -68,7 +68,7 @@ Order Search API is added.
 
 Order Search:
 -------------
-  curl -X GET http://localhost:8080/order/{id} -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'content-type: application/json'
+  curl -X GET http://localhost:8080/orderman/order/{id} -H 'authorization: Basic YWRtaW46YWRtaW4=' -H 'content-type: application/json' -H 'uid: ashish'
   
   Response if valid id: 
   {"orderEntity":{"id":1,"orderId":"1","orderName":"mobileOrder","productName":"moto turbo","createdBy":"Ashish","createdDate":null,"clientUid":"A23074","vendorUid":"Ajeya Raj","vendorUserName":null,"statuCode":"Assigned"},"message":"Matching order found."}
